@@ -19,13 +19,17 @@ const Message = ({ senderId, text, createdAt }: Props) => {
   const conSelector = useSelector(conversationSelector);
   const isOwner = senderId === currentUserId;
 
+  console.log({ senderId, text });
+
   return (
     <div className={`message ${isOwner ? '' : 'your__message'}`}>
       <img
         src={
           isOwner
-            ? conSelector?.senderId?.avatar
-            : conSelector?.receiverId?.avatar
+            ? currentUser?.avatar
+            : conSelector?.senderId._id === currentUserId
+            ? conSelector?.receiverId.avatar
+            : conSelector?.senderId.avatar
         }
         alt=''
       />
