@@ -1,0 +1,45 @@
+@use '../../../App.scss' as *;
+
+.chatBody {
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 20px 32px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $gray__300;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $gray__600;
+  border-radius: 12px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $gray__500;
+}
+
+.endRef {
+  height: 0;
+}
+
+.reverse {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.no__conversation {
+  text-align: center;
+
+  & div {
+    margin-bottom: 12px;
+  }
+}
