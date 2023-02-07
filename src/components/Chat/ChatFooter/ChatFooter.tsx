@@ -1,4 +1,12 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import EmojiPicker, { Emoji } from 'emoji-picker-react';
+import { EmojiClickData, EmojiStyle, Theme } from 'emoji-picker-react';
+import {
+  ChangeEvent,
+  FormEvent,
+  KeyboardEvent,
+  useEffect,
+  useState,
+} from 'react';
 import { useSelector } from 'react-redux';
 import { createMessage } from '../../../store/chatFooterSlice';
 import { conversationSelector, userIdSelector } from '../../../store/selectors';
@@ -6,6 +14,7 @@ import { useAppDispatch } from '../../../store/store';
 import { ConversationI, MessageClient } from '../../../store/type';
 import { socket } from '../Chat';
 import './chatFooter.scss';
+import { useRef } from 'react';
 
 interface Props {}
 
@@ -16,8 +25,9 @@ const ChatFooter = ({}: Props) => {
   const conSelector = useSelector(conversationSelector);
   const currentUserId = useSelector(userIdSelector)!;
   const dispatch = useAppDispatch();
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const inputChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value);
   };
 
@@ -30,7 +40,7 @@ const ChatFooter = ({}: Props) => {
   const sendMessageHandler = (e: FormEvent) => {
     e.preventDefault();
     const message: MessageClient = {
-      text: input,
+      text: input.trim(),
       conversationId: conversation!._id!,
       senderId: currentUserId!,
     };
@@ -51,17 +61,49 @@ const ChatFooter = ({}: Props) => {
     setInput('');
   };
 
+  const emojiClickHandler = (e: EmojiClickData) => {
+    setInput((prev) => prev + e.emoji);
+    setShow(false);
+  };
+
   const showPickerHandler = () => {
     setShow((prev) => !prev);
   };
 
+  const textareaHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    const target = e.target as HTMLInputElement;
+
+    if (target.value && e.key === 'Enter' && e.shiftKey === false) {
+      e.preventDefault();
+      formRef.current?.requestSubmit();
+      return false;
+    }
+  };
+
   return (
-    <form className='chatFooter' onSubmit={sendMessageHandler}>
-      <input
-        placeholder='Type something...'
-        onChange={inputChangeHandler}
-        value={input}
-      />
+    <form className='chatFooter' onSubmit={sendMessageHandler} ref={formRef}>
+      <div className='chatFooter__wrapper'>
+        {/* <input */}
+        <textarea
+          placeholder='Type something...'
+          onChange={inputChangeHandler}
+          value={input}
+          onKeyUp={textareaHandler}
+        />
+        <div className='emoji__wrapper' onClick={showPickerHandler}>
+          <Emoji unified='1f44b' />
+        </div>
+      </div>
+      {show && (
+        <div className='emoji__picker'>
+          <EmojiPicker
+            onEmojiClick={emojiClickHandler}
+            lazyLoadEmojis
+            theme={Theme.DARK}
+            emojiStyle={EmojiStyle.TWITTER}
+          />
+        </div>
+      )}
       <button className='btn send__btn'>Send</button>
     </form>
   );

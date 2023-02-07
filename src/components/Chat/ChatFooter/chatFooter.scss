@@ -2,14 +2,21 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  position: relative;
 
-  & input {
-    outline: 0;
-    border: 0;
-    padding: 12px;
+  &__wrapper {
+    display: flex;
     flex: 1;
-    border-bottom: 1px solid #ccc;
+    position: relative;
+
+    // & input {
+    & textarea {
+      outline: 0;
+      border: 0;
+      flex: 1;
+      border-bottom: 1px solid #ccc;
+      padding: 12px;
+      white-space: pre-wrap;
+    }
   }
 }
 
@@ -32,19 +39,24 @@
 
 .emoji__picker {
   position: absolute;
-  right: 13%;
-  top: 32%;
-  display: flex;
-  flex-direction: column-reverse;
+  right: 84px;
+  bottom: 64px;
 }
 
-// .picker {
-//   position: absolute;
-//   top: -100%;
-// }
-
-.em-emoji-picker {
+.emoji__wrapper {
   position: absolute;
-  top: -100%;
-  margin-bottom: 12px;
+  top: 50%;
+  right: -16px;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 }

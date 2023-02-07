@@ -6,6 +6,7 @@ import {
   conversationSelector,
 } from '../../../store/selectors';
 import { useSelector } from 'react-redux';
+import MarkDown from './MarkDown';
 
 interface Props {
   senderId: string;
@@ -13,13 +14,18 @@ interface Props {
   createdAt: Date;
 }
 
+const markdown = `Here is some JavaScript code:
+
+~~~js
+console.log('It works!')
+~~~
+`;
+
 const Message = ({ senderId, text, createdAt }: Props) => {
   const currentUserId = useSelector(userIdSelector)!;
   const currentUser = useSelector(userSelector);
   const conSelector = useSelector(conversationSelector);
   const isOwner = senderId === currentUserId;
-
-  console.log({ senderId, text });
 
   return (
     <div className={`message ${isOwner ? '' : 'your__message'}`}>
@@ -34,7 +40,7 @@ const Message = ({ senderId, text, createdAt }: Props) => {
         alt=''
       />
       <div className='message__wrapper'>
-        <div className='message__text'>{text}</div>
+        <MarkDown text={text} />
         <div className='message__time'>{format(createdAt)}</div>
       </div>
     </div>

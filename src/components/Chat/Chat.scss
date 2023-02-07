@@ -7,6 +7,7 @@
 
   &__wrapper {
     flex: 1;
+    position: relative;
   }
 }
 
@@ -16,12 +17,12 @@
 }
 
 .chatBody {
-  height: 90vh;
+  height: 85vh;
   overflow-y: scroll;
 }
 
 .chatFooter {
-  height: 10vh;
+  height: 15vh;
   background-color: $gray__100;
 }
 
