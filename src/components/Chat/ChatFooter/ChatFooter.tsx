@@ -15,6 +15,7 @@ import { ConversationI, MessageClient } from '../../../store/type';
 import { socket } from '../Chat';
 import './chatFooter.scss';
 import { useRef } from 'react';
+import ReactTextareaAutosize from 'react-textarea-autosize';
 
 interface Props {}
 
@@ -63,11 +64,15 @@ const ChatFooter = ({}: Props) => {
 
   const emojiClickHandler = (e: EmojiClickData) => {
     setInput((prev) => prev + e.emoji);
-    setShow(false);
+    const time = setTimeout(() => {
+      setShow(false);
+    }, 2000);
+
+    return () => clearTimeout(time);
   };
 
   const showPickerHandler = () => {
-    setShow((prev) => !prev);
+    setShow(true);
   };
 
   const textareaHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -76,19 +81,18 @@ const ChatFooter = ({}: Props) => {
     if (target.value && e.key === 'Enter' && e.shiftKey === false) {
       e.preventDefault();
       formRef.current?.requestSubmit();
-      return false;
     }
   };
 
   return (
     <form className='chatFooter' onSubmit={sendMessageHandler} ref={formRef}>
       <div className='chatFooter__wrapper'>
-        {/* <input */}
-        <textarea
+        <ReactTextareaAutosize
           placeholder='Type something...'
           onChange={inputChangeHandler}
           value={input}
           onKeyUp={textareaHandler}
+          minRows={1}
         />
         <div className='emoji__wrapper' onClick={showPickerHandler}>
           <Emoji unified='1f44b' />

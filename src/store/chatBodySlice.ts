@@ -23,6 +23,8 @@ export const getMessagesThunk = createAsyncThunk(
   }
 );
 
+// export const deleteMessageThunk=createAsyncThunk('deleteMessageThunk',(_id:string))
+
 const chatBodySlice = createSlice({
   name: 'chatBodySlice',
   initialState,

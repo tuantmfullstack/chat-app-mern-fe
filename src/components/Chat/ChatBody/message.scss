@@ -24,6 +24,21 @@
     width: fit-content;
     max-width: 40vw;
     white-space: pre-wrap;
+
+    // &::before {
+    //   content: '';
+    //   top: 12px;
+    //   bottom: 12px;
+    //   left: 24px;
+    //   right: 76px;
+    //   background-color: transparent;
+    //   // background-color: red;
+    //   position: absolute;
+    // }
+
+    &:hover ~ .message__option {
+      display: flex;
+    }
   }
 
   &.your__message {
@@ -42,7 +57,40 @@
     color: #fff;
   }
 
+  .message__option__wrapper {
+    flex-direction: row-reverse;
+  }
+
   & .message__wrapper {
     align-items: flex-end;
+  }
+}
+
+.message__option {
+  color: #333;
+  display: flex;
+  gap: 4px;
+  background-color: $gray__300;
+  padding: 4px 12px;
+  border-radius: 20px;
+  display: none;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+
+    &:hover .message__option {
+      display: flex;
+    }
+  }
+}
+
+.feather {
+  display: block;
+
+  &:hover {
+    cursor: pointer;
   }
 }

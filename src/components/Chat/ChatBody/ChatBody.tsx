@@ -90,6 +90,7 @@ const ChatBody = ({}: Props) => {
             {messageWrapper?.data?.map((message) => (
               <Message
                 key={message._id}
+                _id={message._id}
                 senderId={message.senderId}
                 text={message.text}
                 createdAt={message.createdAt}

@@ -9,8 +9,6 @@ interface Props {
 }
 
 const MarkDown = ({ text }: Props) => {
-  // console.log({ text });
-
   return (
     <ReactMarkdown
       children={text}

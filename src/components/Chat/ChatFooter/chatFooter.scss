@@ -8,7 +8,6 @@
     flex: 1;
     position: relative;
 
-    // & input {
     & textarea {
       outline: 0;
       border: 0;
@@ -16,6 +15,7 @@
       border-bottom: 1px solid #ccc;
       padding: 12px;
       white-space: pre-wrap;
+      resize: none;
     }
   }
 }
