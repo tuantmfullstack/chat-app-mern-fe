@@ -13,6 +13,10 @@ export interface MessageI {
   senderId: string;
   receiverId?: string;
   text: string;
+  emotions: string[];
+  forwardMessage: MessageI | undefined;
+  fileName: string | undefined;
+  fileUrl: string | undefined;
   createdAt: Date;
 }
 

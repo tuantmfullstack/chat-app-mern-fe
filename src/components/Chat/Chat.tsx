@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { io } from 'socket.io-client';
 import './Chat.scss';
 import ChatBar from './ChatBar/ChatBar';
-import ChatBody from './ChatBody/ChatBody';
 import ChatFooter from './ChatFooter/ChatFooter';
 import ChatUser from './ChatUser/ChatUser';
 import { useSelector } from 'react-redux';
 import { conversationSelector, userIdSelector } from '../../store/selectors';
+import ChatBody from './ChatBody/Messages/ChatBody';
 
 interface Props {}
 

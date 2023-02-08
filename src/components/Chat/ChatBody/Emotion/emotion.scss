@@ -1,0 +1,21 @@
+.emotion {
+  position: absolute;
+  top: -52px;
+  left: -700%;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  background-color: #ccc;
+  z-index: 101;
+  padding: 4px 12px;
+  border-radius: 12px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &__wrapper {
+    position: relative;
+  }
+}

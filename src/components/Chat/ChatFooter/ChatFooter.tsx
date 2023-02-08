@@ -64,6 +64,7 @@ const ChatFooter = ({}: Props) => {
 
   const emojiClickHandler = (e: EmojiClickData) => {
     setInput((prev) => prev + e.emoji);
+    console.log(e);
     const time = setTimeout(() => {
       setShow(false);
     }, 2000);
@@ -72,7 +73,7 @@ const ChatFooter = ({}: Props) => {
   };
 
   const showPickerHandler = () => {
-    setShow(true);
+    setShow((prev) => !prev);
   };
 
   const textareaHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {

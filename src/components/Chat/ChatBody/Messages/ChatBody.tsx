@@ -1,19 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import chatBodySlice, { getMessagesThunk } from '../../../store/chatBodySlice';
-import {
-  conversationSelector,
-  isContinueSelector,
-  isLoginSelector,
-  messagesSelector,
-} from '../../../store/selectors';
-import { useAppDispatch } from '../../../store/store';
-import { ConversationI, General, MessageI } from '../../../store/type';
-import { socket } from '../Chat';
 import './chatBody.scss';
 import Message from './Message';
 import NoMessage from './NoMessage';
 import Spinner from './Spinner';
+import {
+  isLoginSelector,
+  conversationSelector,
+  messagesSelector,
+  isContinueSelector,
+} from '../../../../store/selectors';
+import { useAppDispatch } from '../../../../store/store';
+import { ConversationI, General, MessageI } from '../../../../store/type';
+import chatBodySlice from '../../../../store/chatBodySlice';
+import { getMessagesThunk } from '../../../../store/chatBodySlice';
+import { socket } from '../../Chat';
 
 let num = 0;
 
@@ -91,9 +92,11 @@ const ChatBody = ({}: Props) => {
               <Message
                 key={message._id}
                 _id={message._id}
+                id={messageWrapper.id}
                 senderId={message.senderId}
                 text={message.text}
                 createdAt={message.createdAt}
+                emotions={message.emotions}
               />
             ))}
           </div>
