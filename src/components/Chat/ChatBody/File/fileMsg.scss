@@ -1,0 +1,41 @@
+.file__msg {
+  &__wrapper:hover &__download {
+    opacity: 1;
+  }
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ccc;
+    padding: 8px 16px 8px 12px;
+    border-radius: 12px;
+    gap: 8px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__download {
+    opacity: 0;
+    transition: all ease 0.5s;
+  }
+
+  &__input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__href {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+input[type='file'] {
+  display: none;
+}

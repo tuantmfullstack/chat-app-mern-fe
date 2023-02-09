@@ -1,63 +1,37 @@
-import EmojiPicker, { Emoji } from 'emoji-picker-react';
-import { EmojiClickData, EmojiStyle, Theme } from 'emoji-picker-react';
-import {
-  ChangeEvent,
-  FormEvent,
-  KeyboardEvent,
-  useEffect,
-  useState,
-} from 'react';
+import EmojiPicker, {
+  Emoji,
+  EmojiClickData,
+  EmojiStyle,
+  Theme,
+} from 'emoji-picker-react';
+import { ChangeEvent, FormEvent, KeyboardEvent, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { createMessage } from '../../../store/chatFooterSlice';
-import { conversationSelector, userIdSelector } from '../../../store/selectors';
-import { useAppDispatch } from '../../../store/store';
-import { ConversationI, MessageClient } from '../../../store/type';
-import { socket } from '../Chat';
-import './chatFooter.scss';
-import { useRef } from 'react';
 import ReactTextareaAutosize from 'react-textarea-autosize';
+import useMessenger from '../../../hook/useMessenger';
+import { conversationSelector } from '../../../store/selectors';
+import './chatFooter.scss';
+import FileController from './File/FileController';
 
 interface Props {}
 
 const ChatFooter = ({}: Props) => {
-  const [conversation, setConversation] = useState<ConversationI>();
   const [show, setShow] = useState(false);
   const [input, setInput] = useState('');
   const conSelector = useSelector(conversationSelector);
-  const currentUserId = useSelector(userIdSelector)!;
-  const dispatch = useAppDispatch();
   const formRef = useRef<HTMLFormElement>(null);
+  const messageController = useMessenger();
 
   const inputChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value);
   };
 
-  useEffect(() => {
-    if (conSelector) {
-      setConversation({ ...conSelector });
-    }
-  }, [conSelector]);
-
   const sendMessageHandler = (e: FormEvent) => {
     e.preventDefault();
-    const message: MessageClient = {
+
+    messageController({
+      type: 'text',
       text: input.trim(),
-      conversationId: conversation!._id!,
-      senderId: currentUserId!,
-    };
-
-    dispatch(createMessage(message));
-
-    const msg = {
-      ...message,
-      _id: Math.random().toString(),
-      createdAt: new Date(Date.now()),
-      receiverId:
-        conversation?.senderId._id === currentUserId
-          ? conversation?.receiverId._id
-          : conversation?.senderId._id,
-    };
-    socket.emit('sendMessage', msg);
+    });
 
     setInput('');
   };
@@ -94,10 +68,12 @@ const ChatFooter = ({}: Props) => {
           value={input}
           onKeyUp={textareaHandler}
           minRows={1}
+          maxRows={2}
         />
         <div className='emoji__wrapper' onClick={showPickerHandler}>
-          <Emoji unified='1f44b' />
+          <Emoji unified='1f44b' size={28} />
         </div>
+        <FileController />
       </div>
       {show && (
         <div className='emoji__picker'>

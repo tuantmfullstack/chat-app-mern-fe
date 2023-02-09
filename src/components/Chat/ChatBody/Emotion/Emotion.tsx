@@ -7,7 +7,7 @@ import EmotionType from './EmotionType';
 import EmotionItem from './EmotionItem';
 interface Props {
   _id: string;
-  id: string;
+  id: number;
 }
 
 const Emotion = ({ _id, id }: Props) => {

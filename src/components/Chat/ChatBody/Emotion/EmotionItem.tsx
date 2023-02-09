@@ -5,7 +5,7 @@ import chatBodySlice from '../../../../store/chatBodySlice';
 
 interface Props {
   _id: string;
-  id: string;
+  id: number;
   type: string;
   unified: string;
 }

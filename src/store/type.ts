@@ -12,18 +12,22 @@ export interface MessageI {
   conversationId: string;
   senderId: string;
   receiverId?: string;
-  text: string;
+  text?: string | undefined;
   emotions: string[];
-  forwardMessage: MessageI | undefined;
-  fileName: string | undefined;
-  fileUrl: string | undefined;
+  type: string;
+  forwardMessage?: MessageI | undefined;
+  fileName?: string | undefined;
+  fileUrl?: string | undefined;
   createdAt: Date;
 }
 
 export interface MessageClient {
   conversationId: string;
   senderId: string;
-  text: string;
+  text?: string | undefined;
+  fileName?: string | undefined;
+  fileUrl?: string | undefined;
+  type: string;
 }
 
 export interface UserI {

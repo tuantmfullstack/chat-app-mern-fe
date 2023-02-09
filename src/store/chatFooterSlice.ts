@@ -10,8 +10,8 @@ const initialState: ChatFooterStateI = {
   err: false,
 };
 
-export const createMessage = createAsyncThunk(
-  'createMessage',
+export const createMessageThunk = createAsyncThunk(
+  'createMessageThunk',
   (message: MessageClient, { rejectWithValue, dispatch }) => {
     const fn = instance.post('messages', message);
     const data = handleThunk(fn, rejectWithValue);
@@ -29,16 +29,16 @@ const chatFooterSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [createMessage.pending.type]: (state, { payload }) => {
+    [createMessageThunk.pending.type]: (state, { payload }) => {
       state.isLoading = true;
       state.err = false;
     },
-    [createMessage.fulfilled.type]: (state, { payload }) => {
+    [createMessageThunk.fulfilled.type]: (state, { payload }) => {
       state.isLoading = false;
       state.message = payload;
       state.err = false;
     },
-    [createMessage.rejected.type]: (state, { payload }) => {
+    [createMessageThunk.rejected.type]: (state, { payload }) => {
       state.isLoading = false;
       state.err = true;
     },

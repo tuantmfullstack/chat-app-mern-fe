@@ -79,6 +79,7 @@ const ChatBody = ({}: Props) => {
 
   useEffect(() => {
     socket.on('getMessage', (message: MessageI) => {
+      console.log(message);
       setArrivalMessage(message);
     });
   }, []);
@@ -97,6 +98,10 @@ const ChatBody = ({}: Props) => {
                 text={message.text}
                 createdAt={message.createdAt}
                 emotions={message.emotions}
+                type={message.type}
+                fileName={message.fileName}
+                fileUrl={message.fileUrl}
+                forwardMessage={message.forwardMessage}
               />
             ))}
           </div>
