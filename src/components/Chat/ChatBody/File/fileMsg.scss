@@ -1,4 +1,6 @@
 .file__msg {
+  max-width: 500px;
+
   &__wrapper:hover &__download {
     opacity: 1;
   }
