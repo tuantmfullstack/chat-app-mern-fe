@@ -1,16 +1,15 @@
-import Conversation from './Conversation';
-import './chatbar.scss';
-import { useEffect, useState } from 'react';
-import { useAppDispatch } from '../../../store/store';
-import { getAllConversationsThunk } from '../../../store/chatBarSlice';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { getUserInfoThunk } from '../../../store/authSlice';
+import { getAllConversationsThunk } from '../../../store/chatBarSlice';
 import {
   conversationSelectors,
   isLoginSelector,
+  userIdSelector,
 } from '../../../store/selectors';
-import { ConversationI } from '../../../store/type';
-import { userIdSelector } from '../../../store/selectors';
-import { getUserInfoThunk } from '../../../store/authSlice';
+import { useAppDispatch } from '../../../store/store';
+import './chatbar.scss';
+import Conversation from './Conversation';
 import FindingPerson from './FindingPerson';
 
 interface Props {}
@@ -19,16 +18,11 @@ const ChatBar = ({}: Props) => {
   const currentUserId = useSelector(userIdSelector)!;
   const isLogin = useSelector(isLoginSelector);
   const dispatch = useAppDispatch();
-  const conSelector = useSelector(conversationSelectors);
-  const [conversations, setConversations] = useState<ConversationI[]>([]);
+  const conversations = useSelector(conversationSelectors);
 
   useEffect(() => {
     if (isLogin) dispatch(getUserInfoThunk({ id: currentUserId }));
   }, [isLogin]);
-
-  useEffect(() => {
-    setConversations([...conSelector]);
-  }, [conSelector]);
 
   useEffect(() => {
     if (isLogin) {
@@ -39,18 +33,20 @@ const ChatBar = ({}: Props) => {
   return (
     <div className='chatbar'>
       <FindingPerson />
-      {conversations.map((con) => (
-        <Conversation
-          key={con._id}
-          name={
-            con.receiverId._id === currentUserId
-              ? con.senderId.email
-              : con.receiverId.email
-          }
-          img={con.image}
-          conversation={con}
-        />
-      ))}
+      {conversations.map((con) => {
+        return (
+          <Conversation
+            key={con._id}
+            name={
+              con.receiverId._id === currentUserId
+                ? con.senderId.email
+                : con.receiverId.email
+            }
+            img={con.image}
+            conversation={con}
+          />
+        );
+      })}
     </div>
   );
 };

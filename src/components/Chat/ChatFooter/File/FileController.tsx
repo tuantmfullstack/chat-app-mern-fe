@@ -18,9 +18,7 @@ const FileController = ({}: Props) => {
     if (files) {
       const file = files[0];
 
-      if (file.type.startsWith('image')) {
-        type = 'img';
-      }
+      if (file.type.startsWith('image')) type = 'img';
 
       const fileRef = ref(storage, `${type}s/${file.name}`);
       await uploadBytes(fileRef, file);
