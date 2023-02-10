@@ -10,6 +10,7 @@ const initialState: ChatBarStateI = {
   conversations: [],
   conversation: null,
   users: [],
+  activeUsers: [],
   err: false,
 };
 
@@ -55,6 +56,9 @@ const chatBarSlice = createSlice({
     },
     addNewConversation: (state, { payload }) => {
       state.conversations.push(payload);
+    },
+    getActiveUsers: (state, { payload }) => {
+      state.activeUsers = payload;
     },
   },
   extraReducers: {

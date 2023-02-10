@@ -7,6 +7,8 @@ import ChatUser from './ChatUser/ChatUser';
 import { useSelector } from 'react-redux';
 import { conversationSelector, userIdSelector } from '../../store/selectors';
 import ChatBody from './ChatBody/Messages/ChatBody';
+import { useAppDispatch } from '../../store/store';
+import chatBarSlice from '../../store/chatBarSlice';
 
 interface Props {}
 
@@ -16,13 +18,16 @@ export const socket = io('http://localhost:3000');
 const Chat = ({}: Props) => {
   const conSelector = useSelector(conversationSelector);
   const currentUserId = useSelector(userIdSelector)!;
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     socket.emit('sendUser', currentUserId);
   }, []);
 
   useEffect(() => {
-    socket.on('getUsers', (data) => {});
+    socket.on('getUsers', (data) => {
+      dispatch(chatBarSlice.actions.getActiveUsers(data));
+    });
   }, []);
 
   return (

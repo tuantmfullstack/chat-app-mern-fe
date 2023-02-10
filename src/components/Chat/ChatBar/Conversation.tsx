@@ -1,15 +1,25 @@
 import './conversation.scss';
 import { useAppDispatch } from '../../../store/store';
 import chatBarSlice from '../../../store/chatBarSlice';
-import { ConversationI } from '../../../store/type';
+import { ConversationI, UserI } from '../../../store/type';
 import chatBodySlice from '../../../store/chatBodySlice';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import {
   userIdSelector,
   conversationSelectors,
 } from '../../../store/selectors';
-import { forwardRef, useImperativeHandle, useRef } from 'react';
-import { conversationSelector } from '../../../store/selectors';
+import {
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+  useMemo,
+  useState,
+} from 'react';
+import {
+  conversationSelector,
+  activeUserSelectors,
+} from '../../../store/selectors';
 
 interface Props {
   name: string;
@@ -24,12 +34,28 @@ const Conversation = ({ name, img, conversation }: Props, ref: any) => {
   const currentUserId = useSelector(userIdSelector);
   const isOwner = conversation?.senderId?._id === currentUserId;
   const divRef = useRef<HTMLDivElement>(null);
+  const activeUsers = useSelector(activeUserSelectors);
+  const [receiver, setReceiver] = useState<UserI>();
+  const [active, setActive] = useState(true);
+
+  useEffect(() => {
+    console.log({ activeUsers, receiver });
+    if (receiver && activeUsers?.includes(receiver._id)) setActive(true);
+    else setActive(false);
+  }, [activeUsers, receiver]);
 
   const conversationHandler = () => {
-    divRef.current?.classList.add('active');
     dispatch(chatBodySlice.actions.resetMessages());
     dispatch(chatBarSlice.actions.changeConversation(conversation));
   };
+
+  useEffect(() => {
+    if (conversation?.senderId?._id === currentUserId) {
+      setReceiver(conversation.receiverId);
+    } else {
+      setReceiver(conversation.senderId);
+    }
+  }, [conSelector]);
 
   return (
     <div
@@ -46,6 +72,12 @@ const Conversation = ({ name, img, conversation }: Props, ref: any) => {
             : conversation.senderId.avatar
         }
         style={{ borderRadius: '50%' }}
+      />
+      <div
+        className='status'
+        style={{
+          display: `${active ? 'block' : ''}`,
+        }}
       />
       <div className='convesation__name'>
         {isOwner ? conversation.receiverId.name : conversation.senderId.name}

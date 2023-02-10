@@ -12,3 +12,5 @@ export const userSelector = (state: RootState) => state.authSlice.user;
 export const isContinueSelector = (state: RootState) =>
   state.chatBodySlice.isContinue;
 export const userSelectors = (state: RootState) => state.chatBarSlice.users;
+export const activeUserSelectors = (state: RootState) =>
+  state.chatBarSlice.activeUsers;

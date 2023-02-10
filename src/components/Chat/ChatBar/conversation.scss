@@ -10,6 +10,7 @@
   border-radius: 8px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
   overflow: hidden;
+  position: relative;
 
   &:hover {
     background-color: $gray__300;
@@ -30,4 +31,15 @@
     // background-color: rgba(0, 0, 0, 0.05);
     background-color: $blue__200;
   }
+}
+
+.status {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: $green;
+  left: 36px;
+  bottom: 4px;
+  border-radius: 50%;
+  display: none;
 }

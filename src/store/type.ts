@@ -2,8 +2,8 @@ export interface ConversationI {
   _id: string;
   name: string;
   image: string;
-  senderId: { _id: string; email: string; avatar: string; name: string };
-  receiverId: { _id: string; email: string; avatar: string; name: string };
+  senderId: UserI;
+  receiverId: UserI;
   createdAt: Date;
 }
 
@@ -57,6 +57,7 @@ export interface ChatBarStateI {
   isLoading: boolean | null;
   isConversationCreated: boolean;
   users: UserI[];
+  activeUsers: string[];
   conversations: ConversationI[];
   conversation: ConversationI | null;
   err: boolean | null;
