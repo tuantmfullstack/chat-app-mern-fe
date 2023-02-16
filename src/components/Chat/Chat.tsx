@@ -12,8 +12,8 @@ import chatBarSlice from '../../store/chatBarSlice';
 
 interface Props {}
 
-// export const socket = io('https://chat-app-mern-jd3z.onrender.com/');
-export const socket = io('http://localhost:3000');
+export const socket = io('https://chat-app-mern-jd3z.onrender.com/');
+// export const socket = io('http://localhost:3000');
 
 const Chat = ({}: Props) => {
   const conSelector = useSelector(conversationSelector);
