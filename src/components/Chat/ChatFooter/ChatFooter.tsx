@@ -4,13 +4,21 @@ import EmojiPicker, {
   EmojiStyle,
   Theme,
 } from 'emoji-picker-react';
-import { ChangeEvent, FormEvent, KeyboardEvent, useRef, useState } from 'react';
+import {
+  ChangeEvent,
+  FormEvent,
+  KeyboardEvent,
+  useRef,
+  useState,
+  useEffect,
+} from 'react';
 import { useSelector } from 'react-redux';
 import ReactTextareaAutosize from 'react-textarea-autosize';
 import useMessenger from '../../../hook/useMessenger';
-import { conversationSelector } from '../../../store/selectors';
+import { conversationSelector, userIdSelector } from '../../../store/selectors';
 import './chatFooter.scss';
 import FileController from './File/FileController';
+import { socket } from '../Chat';
 
 interface Props {}
 
@@ -20,6 +28,7 @@ const ChatFooter = ({}: Props) => {
   const conSelector = useSelector(conversationSelector);
   const formRef = useRef<HTMLFormElement>(null);
   const messageController = useMessenger();
+  const currentUserId = useSelector(userIdSelector);
 
   const inputChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value);
@@ -49,6 +58,15 @@ const ChatFooter = ({}: Props) => {
   const showPickerHandler = () => {
     setShow((prev) => !prev);
   };
+
+  useEffect(() => {
+    socket.emit(
+      'sendKeyUp',
+      conSelector?.senderId._id === currentUserId
+        ? conSelector.receiverId._id
+        : conSelector?.senderId._id
+    );
+  }, [input]);
 
   const textareaHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     const target = e.target as HTMLInputElement;

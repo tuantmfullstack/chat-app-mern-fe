@@ -84,6 +84,12 @@ const ChatBody = ({}: Props) => {
     });
   }, []);
 
+  useEffect(() => {
+    socket.on('getKeyUp', (data) => {
+      console.log(data);
+    });
+  });
+
   return (
     <div className='chatBody'>
       {messages && messages[0]?.data?.length > 0 ? (

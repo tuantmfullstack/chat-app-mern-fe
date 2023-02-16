@@ -1,10 +1,22 @@
 @use '../../../../App.scss' as *;
 
+@keyframes messagePopup {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .message {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 12px;
+  animation: messagePopup 0.5s;
 
   &__avatar {
     width: 40px;
