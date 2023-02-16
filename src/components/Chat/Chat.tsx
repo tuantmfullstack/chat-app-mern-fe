@@ -12,7 +12,9 @@ import chatBarSlice from '../../store/chatBarSlice';
 
 interface Props {}
 
-export const socket = io('https://chat-app-mern-jb38.onrender.com/');
+export const socket = io('https://chat-app-mern-jb38.onrender.com', {
+  withCredentials: true,
+});
 // export const socket = io('http://localhost:3000');
 
 const Chat = ({}: Props) => {
