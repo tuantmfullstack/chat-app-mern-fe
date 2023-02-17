@@ -39,7 +39,7 @@ const Conversation = ({ name, img, conversation }: Props, ref: any) => {
   const [active, setActive] = useState(true);
 
   useEffect(() => {
-    console.log({ activeUsers, receiver });
+    // console.log({ activeUsers, receiver });
     if (receiver && activeUsers?.includes(receiver._id)) setActive(true);
     else setActive(false);
   }, [activeUsers, receiver]);
