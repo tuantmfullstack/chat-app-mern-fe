@@ -47,7 +47,7 @@ const ChatFooter = ({}: Props) => {
 
   const emojiClickHandler = (e: EmojiClickData) => {
     setInput((prev) => prev + e.emoji);
-    console.log(e);
+    // console.log(e);
     const time = setTimeout(() => {
       setShow(false);
     }, 2000);

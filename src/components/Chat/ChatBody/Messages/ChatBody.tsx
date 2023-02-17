@@ -79,14 +79,14 @@ const ChatBody = ({}: Props) => {
 
   useEffect(() => {
     socket.on('getMessage', (message: MessageI) => {
-      console.log(message);
+      // console.log(message);
       setArrivalMessage(message);
     });
   }, []);
 
   useEffect(() => {
     socket.on('getKeyUp', (data) => {
-      console.log(data);
+      // console.log(data);
     });
   });
 

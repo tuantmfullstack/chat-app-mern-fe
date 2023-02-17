@@ -84,7 +84,7 @@ const chatBodySlice = createSlice({
       state.err = false;
     },
     [deleteMessageThunk.fulfilled.type]: (state, { payload }) => {
-      console.log({ payload });
+      // console.log({ payload });
 
       state.messages = state.messages.map((messageWrapper) => ({
         id: messageWrapper.id,
